@@ -1,0 +1,383 @@
+JSON Profile Explanation on profiler_test.csv
+
+1️⃣ Dataset-level fields (top of the JSON)
+rows
+
+What it means:
+Total number of rows in the dataset.
+➡️ Here: 10 rows.
+
+columns
+
+What it means:
+Total number of columns.
+➡️ Here: 8 columns.
+
+duplicate_rows
+
+What it means:
+Number of rows that are exact duplicates of other rows.
+➡️ 0 means every row is unique.
+
+missing_cells_pct
+
+What it means:
+Percentage of all cells (rows × columns) that are missing (null, NaN, empty).
+
+How it’s calculated:
+
+(missing cells / total cells) × 100
+
+
+➡️ 3.75% means a small amount of missing data overall.
+
+memory_mb
+
+What it means:
+Approximate memory used by the dataset in megabytes.
+➡️ Very small here (~0.003 MB) since the dataset is tiny.
+
+row_uniqueness_ratio
+
+What it means:
+How unique the rows are.
+
+How it’s calculated:
+
+unique rows / total rows
+
+
+➡️ 1.0 = all rows are unique
+➡️ < 1.0 = duplicates exist
+
+2️⃣ Column-level fields (inside "columns")
+
+Each column has the same core metrics, plus some type-specific ones.
+
+Core fields (appear in almost every column)
+dtype
+
+What it means:
+The data type inferred by the system (often pandas-style).
+
+Examples:
+
+int64 → integer numbers
+
+float64 → decimal numbers
+
+object → strings or mixed types
+
+missing_pct
+
+What it means:
+Percentage of values in this column that are missing.
+
+Example:
+salary.missing_pct = 10.0
+➡️ 1 out of 10 values is missing.
+
+unique_count
+
+What it means:
+Number of distinct (unique) values in the column.
+
+➡️ unique_count = 10 in a 10-row dataset means every value is different.
+
+cardinality_ratio
+
+What it means:
+How “unique-heavy” a column is.
+
+How it’s calculated:
+
+unique_count / total_rows
+
+
+How to interpret it:
+
+1.0 → every value is unique (IDs, timestamps)
+
+~0.9 → mostly unique
+
+~0.3 → categorical (few repeated values)
+
+< 0.1 → very low variety
+
+Examples from your data:
+
+index_id: 1.0 → ID-like
+
+category: 0.3 → categorical
+
+is_active: 0.3 → boolean-like
+
+is_index_like
+
+What it means:
+Whether the column behaves like an index or primary key.
+
+Typically:
+
+High cardinality
+
+No missing values
+
+Often numeric or sequential
+
+➡️ index_id = true makes sense.
+
+semantic_type
+
+What it means:
+The interpreted meaning of the column, beyond raw dtype.
+
+Examples:
+
+index
+
+numeric
+
+text
+
+datetime
+
+➡️ posted_date is object dtype but semantic type is datetime.
+
+3️⃣ Datetime detection fields
+datetime_string_ratio
+
+What it means:
+Fraction of values that look like dates (e.g., YYYY-MM-DD).
+
+➡️ 1.0 = every value looks like a date.
+
+datetime_parse_ratio
+
+What it means:
+Fraction of values that can actually be parsed into a valid date.
+
+➡️ 1.0 for posted_date means all values are valid dates.
+
+4️⃣ Numeric-only fields
+
+(Only present for numeric columns like index_id, salary)
+
+min, max
+
+Smallest and largest values.
+
+mean, median
+
+Average and middle value.
+
+std
+
+Standard deviation — how spread out the values are.
+
+skewness
+
+What it means:
+Whether the distribution is lopsided.
+
+0 → symmetric
+
+> 0 → right-skewed (long tail to high values)
+
+< 0 → left-skewed
+
+➡️ salary.skewness ≈ 3.0 → strong right skew (a few very high salaries).
+
+outlier_pct
+
+What it means:
+Percentage of values detected as outliers (often via IQR or z-score).
+
+➡️ 11.11% → roughly 1 out of 9 values is an outlier.
+
+5️⃣ Text / string analysis fields
+numeric_string_ratio
+
+What it means:
+Fraction of strings that look numeric ("123", "45.6").
+
+boolean_string_ratio
+
+What it means:
+Fraction of strings that look like booleans (Yes, No, True, False).
+
+➡️ is_active = 0.9 → mostly boolean-like values.
+
+contains_currency_symbols
+
+What it means:
+Whether values contain symbols like $, €, £.
+
+➡️ Helps detect money stored as text.
+
+contains_percentage_symbol
+
+What it means:
+Whether values contain %.
+
+➡️ Seen in completion_pct.
+
+avg_string_length / max_string_length
+
+Average and maximum length of strings in the column.
+
+top_values
+
+What it means:
+Most frequent values in the column (useful for spotting patterns or junk).
+
+JSON: 
+
+{
+    "dataset": {
+        "rows": 10,
+        "columns": 8,
+        "duplicate_rows": 0,
+        "missing_cells_pct": 3.75,
+        "memory_mb": 0.0033893585205078125,
+        "row_uniqueness_ratio": 1.0
+    },
+    "columns": {
+        "index_id": {
+            "dtype": "int64",
+            "missing_pct": 0.0,
+            "unique_count": 10,
+            "cardinality_ratio": 1.0,
+            "is_index_like": true,
+            "datetime_string_ratio": 0.0,
+            "datetime_parse_ratio": 0.0,
+            "semantic_type": "index",
+            "min": 0.0,
+            "max": 9.0,
+            "mean": 4.5,
+            "median": 4.5,
+            "std": 3.0276503540974917,
+            "skewness": 0.0,
+            "outlier_pct": 0.0
+        },
+        "salary": {
+            "dtype": "float64",
+            "missing_pct": 10.0,
+            "unique_count": 9,
+            "cardinality_ratio": 0.9,
+            "is_index_like": false,
+            "datetime_string_ratio": 0.0,
+            "datetime_parse_ratio": 0.0,
+            "semantic_type": "numeric",
+            "min": 45000.0,
+            "max": 200000.0,
+            "mean": 65333.333333333336,
+            "median": 49000.0,
+            "std": 50551.95347362947,
+            "skewness": 2.988121336354056,
+            "outlier_pct": 11.11111111111111
+        },
+        "currency_salary": {
+            "dtype": "object",
+            "missing_pct": 10.0,
+            "unique_count": 9,
+            "cardinality_ratio": 0.9,
+            "is_index_like": false,
+            "datetime_string_ratio": 0.0,
+            "datetime_parse_ratio": 0.0,
+            "semantic_type": "text",
+            "numeric_string_ratio": 0.0,
+            "boolean_string_ratio": 0.0,
+            "contains_currency_symbols": true,
+            "contains_percentage_symbol": false,
+            "avg_string_length": 6.111111111111111,
+            "max_string_length": 7.0,
+            "top_values": ["$50000", "$52000", "$51000", "$200000", "$49000"]
+        },
+        "completion_pct": {
+            "dtype": "object",
+            "missing_pct": 0.0,
+            "unique_count": 10,
+            "cardinality_ratio": 1.0,
+            "is_index_like": false,
+            "datetime_string_ratio": 0.0,
+            "datetime_parse_ratio": 0.0,
+            "semantic_type": "text",
+            "numeric_string_ratio": 0.0,
+            "boolean_string_ratio": 0.0,
+            "contains_currency_symbols": true,
+            "contains_percentage_symbol": true,
+            "avg_string_length": 2.8,
+            "max_string_length": 3.0,
+            "top_values": ["80%", "85%", "90%", "95%", "70%"]
+        },
+        "is_active": {
+            "dtype": "object",
+            "missing_pct": 0.0,
+            "unique_count": 3,
+            "cardinality_ratio": 0.3,
+            "is_index_like": false,
+            "datetime_string_ratio": 0.0,
+            "datetime_parse_ratio": 0.0,
+            "semantic_type": "text",
+            "numeric_string_ratio": 0.0,
+            "boolean_string_ratio": 0.9,
+            "contains_currency_symbols": true,
+            "contains_percentage_symbol": false,
+            "avg_string_length": 2.4,
+            "max_string_length": 3.0,
+            "top_values": ["Yes", "No", "$"]
+        },
+        "category": {
+            "dtype": "object",
+            "missing_pct": 0.0,
+            "unique_count": 3,
+            "cardinality_ratio": 0.3,
+            "is_index_like": false,
+            "datetime_string_ratio": 0.0,
+            "datetime_parse_ratio": 0.0,
+            "semantic_type": "text",
+            "numeric_string_ratio": 0.0,
+            "boolean_string_ratio": 0.0,
+            "contains_currency_symbols": false,
+            "contains_percentage_symbol": false,
+            "avg_string_length": 1.0,
+            "max_string_length": 1.0,
+            "top_values": ["A", "B", "C"]
+        },
+        "posted_date": {
+            "dtype": "object",
+            "missing_pct": 0.0,
+            "unique_count": 10,
+            "cardinality_ratio": 1.0,
+            "is_index_like": false,
+            "datetime_string_ratio": 1.0,
+            "datetime_parse_ratio": 1.0,
+            "semantic_type": "datetime",
+            "numeric_string_ratio": 0.0,
+            "boolean_string_ratio": 0.0,
+            "contains_currency_symbols": false,
+            "contains_percentage_symbol": false,
+            "avg_string_length": 10.0,
+            "max_string_length": 10.0,
+            "top_values": ["2023-01-15", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19"]
+        },
+        "free_text": {
+            "dtype": "object",
+            "missing_pct": 10.0,
+            "unique_count": 9,
+            "cardinality_ratio": 0.9,
+            "is_index_like": false,
+            "datetime_string_ratio": 0.0,
+            "datetime_parse_ratio": 0.0,
+            "semantic_type": "text",
+            "numeric_string_ratio": 0.0,
+            "boolean_string_ratio": 0.0,
+            "contains_currency_symbols": false,
+            "contains_percentage_symbol": false,
+            "avg_string_length": 15.444444444444445,
+            "max_string_length": 30.0,
+            "top_values": ["Hello world", "Some random text", "Another sentence here", "This is a longer piece of text", "Short"]
+        }
+    }
+}

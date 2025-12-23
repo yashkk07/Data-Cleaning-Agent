@@ -1,7 +1,6 @@
-from typing import Dict, Any
+from typing import Dict, Any, List
 import pandas as pd
 
-from etl.extract.reader import read_csv_safe
 from etl.profile.profiler import profile_dataframe
 from etl.profile.serializer import ensure_json_serializable
 from etl.llm.planner import generate_plan
@@ -9,59 +8,59 @@ from etl.executor.tool_executor import execute_plan
 from etl.validate.validator import validate_transformation
 
 
-class PipelineError(Exception):
+class AgentFailure(Exception):
     pass
 
 
-def run_pipeline(
-    input_csv_path: str,
-    output_csv_path: str,
+def run_agent_loop(
+    df_raw: pd.DataFrame,
     max_iterations: int = 3
 ) -> Dict[str, Any]:
+    """
+    Iterative agent loop with reflection.
+    Returns final dataframe + execution history.
+    """
 
-    df_raw, read_meta = read_csv_safe(input_csv_path)
-
+    history: List[Dict[str, Any]] = []
     df_current = df_raw.copy()
-    history = []
 
     profile = ensure_json_serializable(profile_dataframe(df_current))
 
     for iteration in range(1, max_iterations + 1):
 
-        feedback = history[-1] if history else None
-        plan = generate_plan(profile, feedback)
+        plan = generate_plan(
+            profile=profile,
+            feedback=history[-1] if history else None
+        )
 
         try:
             df_next = execute_plan(df_current, plan)
             validate_transformation(df_current, df_next)
 
-            df_next.to_csv(output_csv_path, index=False)
-
             history.append({
                 "iteration": iteration,
-                "status": "success",
-                "plan": plan
+                "plan": plan,
+                "status": "success"
             })
 
             return {
-                "status": "success",
-                "iterations": iteration,
-                "plan": plan,
-                "history": history,
-                "read_metadata": read_meta
+                "df": df_next,
+                "history": history
             }
 
         except Exception as e:
             history.append({
                 "iteration": iteration,
+                "plan": plan,
                 "status": "failed",
-                "error": str(e),
-                "plan": plan
+                "error": str(e)
             })
 
+            # Reflect: augment profile with failure context
             profile["last_failure"] = {
+                "iteration": iteration,
                 "error": str(e),
                 "failed_plan": plan
             }
 
-    raise PipelineError("Agent failed to converge after max iterations")
+    raise AgentFailure("Agent failed to converge after max iterations")

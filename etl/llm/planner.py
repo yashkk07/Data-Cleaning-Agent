@@ -1,19 +1,17 @@
 import json
 import os
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 from groq import Groq
 from dotenv import load_dotenv
 
-# Load environment variables from .env
 load_dotenv()
 
+# ======================================================
+# CONFIG
+# ======================================================
 
-# ============================================================
-# 1. CONFIGURATION (LOCKED CONTRACTS)
-# ============================================================
-
-ALLOWED_TOOLS: List[str] = [
+ALLOWED_TOOLS = [
     "clean_column_names",
     "standardize_missing",
     "trim_whitespace",
@@ -32,69 +30,75 @@ PLAN_SCHEMA_EXAMPLE = {
     ]
 }
 
-
-# ============================================================
-# 2. PROMPTS (ALL PROMPTING LIVES HERE)
-# ============================================================
+# ======================================================
+# PROMPTS
+# ======================================================
 
 SYSTEM_PROMPT = """
-You are a data cleaning planner for a production ETL system.
+You are a data-cleaning planner for a production ETL system. 
 
-STRICT RULES (MUST FOLLOW):
+STRICT RULES:
 - Output ONLY valid JSON
-- Do NOT include explanations
-- Do NOT include markdown
-- Do NOT include code blocks
-- Do NOT include comments
-- Do NOT include text outside JSON
+- No explanations
+- No markdown
+- No comments
+- No text outside JSON
 
-YOU ARE NOT ALLOWED TO:
-- Write Python code
-- Execute transformations
-- Access files
-- Guess business meaning
+YOU MAY ONLY:
+- Select tools from the allowed list
+- Provide COMPLETE arguments for tools
 
-YOUR TASK:
-Given dataset profiling metadata, generate a SAFE, MINIMAL,
-and CONSERVATIVE data cleaning plan.
-
-Only suggest steps that are clearly justified by the metadata.
+DO NOT:
+- Guess column names
+- Repeat failed actions
+- Be aggressive unless justified by metadata
 """
 
+def build_user_prompt(
+    profile_json: str,
+    feedback: Optional[Dict[str, Any]] = None
+) -> str:
 
-def build_user_prompt(profile_json: str) -> str:
+    feedback_block = ""
+    if feedback:
+        feedback_block = f"""
+Previous attempt FAILED.
+
+Failure details:
+{json.dumps(feedback, indent=2)}
+
+Rules:
+- Do NOT repeat the failed step
+- Fix missing or incorrect arguments
+- Be more conservative
+"""
+
     return f"""
 Dataset profile (JSON):
 {profile_json}
 
+{feedback_block}
+
 Allowed tools:
 {ALLOWED_TOOLS}
 
-Required output schema (example):
+Output schema example:
 {PLAN_SCHEMA_EXAMPLE}
 
-Rules:
-- Use ONLY the allowed tools
-- Each step must be necessary
-- Do NOT invent tools
-- Do NOT add unnecessary steps
-
-Generate the cleaning plan now.
+Generate a minimal, safe cleaning plan.
 """
 
-
-# ============================================================
-# 3. LLM CLIENT (GROQ)
-# ============================================================
+# ======================================================
+# GROQ CLIENT
+# ======================================================
 
 def get_groq_client() -> Groq:
     api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
-        raise EnvironmentError("GROQ_API_KEY not set in environment")
+        raise EnvironmentError("GROQ_API_KEY not set")
     return Groq(api_key=api_key)
 
-
-def call_groq_llm(system_prompt: str, user_prompt: str) -> str:
+def call_groq(system_prompt: str, user_prompt: str) -> str:
     client = get_groq_client()
 
     response = client.chat.completions.create(
@@ -103,75 +107,55 @@ def call_groq_llm(system_prompt: str, user_prompt: str) -> str:
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ],
-        temperature=0.0,   # deterministic
+        temperature=0.0,
         max_tokens=800,
     )
 
     return response.choices[0].message.content.strip()
 
+# ======================================================
+# VALIDATION
+# ======================================================
 
-# ============================================================
-# 4. OUTPUT VALIDATION (NON-NEGOTIABLE)
-# ============================================================
-
-def validate_plan_schema(plan: Dict[str, Any]) -> None:
-    if step["name"] == "convert_numeric":
-        if "column" not in step["args"]:
-            raise ValueError("convert_numeric requires 'column'")
-
-    if not isinstance(plan, dict):
-        raise ValueError("Plan must be a JSON object")
-
+def validate_plan(plan: Dict[str, Any]) -> None:
     if "steps" not in plan or not isinstance(plan["steps"], list):
-        raise ValueError("Plan must contain a 'steps' list")
+        raise ValueError("Plan must contain 'steps' list")
 
-    for idx, step in enumerate(plan["steps"]):
-        if not isinstance(step, dict):
-            raise ValueError(f"Step {idx} is not an object")
-
+    for step in plan["steps"]:
         if step.get("type") != "tool":
-            raise ValueError(f"Step {idx}: only 'tool' type is allowed")
+            raise ValueError("Only tool steps allowed")
 
-        tool_name = step.get("name")
-        if tool_name not in ALLOWED_TOOLS:
-            raise ValueError(f"Step {idx}: tool not allowed: {tool_name}")
+        name = step.get("name")
+        args = step.get("args")
 
-        if "args" not in step or not isinstance(step["args"], dict):
-            raise ValueError(f"Step {idx}: 'args' must be a dict")
+        if name not in ALLOWED_TOOLS:
+            raise ValueError(f"Tool not allowed: {name}")
 
+        if not isinstance(args, dict):
+            raise ValueError("Args must be a dict")
 
-# ============================================================
-# 5. PUBLIC ENTRY POINT (PIPELINE CALLS ONLY THIS)
-# ============================================================
+        # if name in {"convert_numeric", "parse_datetime"}:
+        #     if "column" not in args:
+        #         raise ValueError(f"{name} requires 'column'")
 
-def generate_plan(profile: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Input: profiler output (dict)
-    Output: validated cleaning plan (dict)
-    """
+# ======================================================
+# PUBLIC API
+# ======================================================
 
-    # 1. Ensure JSON-safe input
-    try:
-        profile_json = json.dumps(profile, indent=2)
-    except TypeError as e:
-        raise ValueError(f"Profile is not JSON-serializable: {e}")
+def generate_plan(
+    profile: Dict[str, Any],
+    feedback: Optional[Dict[str, Any]] = None
+) -> Dict[str, Any]:
 
-    # 2. Build prompts
-    system_prompt = SYSTEM_PROMPT
-    user_prompt = build_user_prompt(profile_json)
+    profile_json = json.dumps(profile, indent=2)
 
-    # 3. Call Groq
-    llm_output = call_groq_llm(system_prompt, user_prompt)
+    user_prompt = build_user_prompt(profile_json, feedback)
+    llm_output = call_groq(SYSTEM_PROMPT, user_prompt)
 
-    # 4. Parse JSON
     try:
         plan = json.loads(llm_output)
-    except json.JSONDecodeError as e:
-        raise ValueError(
-            f"LLM output is not valid JSON.\nRaw output:\n{llm_output}"
-        ) from e
+    except json.JSONDecodeError:
+        raise ValueError(f"LLM returned invalid JSON:\n{llm_output}")
 
-    # 5. Validate schema
-    validate_plan_schema(plan)
-
+    validate_plan(plan)
     return plan

@@ -63,7 +63,12 @@ def read_csv_safe(
         encoding = detect_encoding(file_path)
         metadata["encoding"] = encoding
 
-        delimiter = detect_delimiter(file_path, encoding)
+        try:
+            delimiter = detect_delimiter(file_path, encoding)
+        except CSVReadError:
+            # Fallback: assume single-column CSV
+            delimiter = ","
+
         metadata["delimiter"] = delimiter
 
         bad_lines = []
