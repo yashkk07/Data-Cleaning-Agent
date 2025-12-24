@@ -17,9 +17,88 @@
       {% endif %}
     {% endwith %}
 
-    <form method="post" enctype="multipart/form-data">
+    <!-- Upload form (initial) -->
+    <form id="upload-form" method="post" enctype="multipart/form-data">
       <label>Upload CSV: <input type="file" name="file" accept=".csv"></label>
-      <button type="submit">Upload & Clean</button>
+      <button type="submit">Upload & Preview</button>
     </form>
+
+    {% if eda %}
+      <h2>Preview (first {{ eda.rows }} rows)</h2>
+      <p><strong>Columns:</strong> {{ eda.columns | join(', ') }}</p>
+      <p><strong>dtypes:</strong></p>
+      <ul>
+      {% for col, dt in eda.dtypes.items() %}
+        <li>{{ col }}: {{ dt }}</li>
+      {% endfor %}
+      </ul>
+
+      <h3>First 5 rows</h3>
+      <table border="1" cellpadding="4" cellspacing="0">
+        <thead>
+          <tr>
+            {% for c in eda.columns %}
+              <th>{{ c }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in eda.head %}
+            <tr>
+              {% for c in eda.columns %}
+                <td>{{ row.get(c, '') }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>Run Cleaning</h3>
+      <form id="clean-form" method="post">
+        <input type="hidden" name="uploaded_filename" value="{{ uploaded_filename }}">
+
+        <h4>Mode</h4>
+        <label><input type="radio" name="mode" value="full" checked> Run full ETL (automatic)</label><br>
+        <label><input type="radio" name="mode" value="selective"> Selective ETL (pick cleaners)</label>
+
+        <div id="selective-options" style="display:none; margin-top:1em; border:1px solid #ddd; padding:8px;">
+          <h4>Choose cleaners (in order)</h4>
+          <label><input type="checkbox" name="tools" value="clean_column_names"> clean_column_names</label><br>
+          <label><input type="checkbox" name="tools" value="standardize_missing"> standardize_missing</label><br>
+          <label><input type="checkbox" name="tools" value="trim_whitespace"> trim_whitespace</label>
+          <div style="margin-left:16px; margin-bottom:8px;">
+            <label>Columns (comma-separated): <input type="text" name="trim_whitespace_columns" placeholder="col1, col2"></label>
+          </div>
+          <label><input type="checkbox" name="tools" value="remove_duplicates"> remove_duplicates</label><br>
+          <label><input type="checkbox" name="tools" value="convert_numeric"> convert_numeric</label>
+          <div style="margin-left:16px; margin-bottom:8px;">
+            <label>Column name: <input type="text" name="convert_numeric_column" placeholder="column_name"></label>
+          </div>
+          <label><input type="checkbox" name="tools" value="parse_datetime"> parse_datetime</label>
+          <div style="margin-left:16px; margin-bottom:8px;">
+            <label>Column name: <input type="text" name="parse_datetime_column" placeholder="column_name"></label>
+          </div>
+        </div>
+
+        <button type="submit">Run Cleaning</button>
+      </form>
+    {% endif %}
+
+    <script>
+      function wireModeToggle(context) {
+        const radios = context.querySelectorAll('input[name="mode"]');
+        const sel = context.querySelector('#selective-options');
+        radios.forEach(r => r.addEventListener('change', () => {
+          if (context.querySelector('input[name="mode"]:checked').value === 'selective') {
+            sel.style.display = 'block';
+          } else {
+            sel.style.display = 'none';
+          }
+        }));
+      }
+
+      // wire upload form (no selective options)
+      wireModeToggle(document);
+    </script>
   </body>
 </html>
