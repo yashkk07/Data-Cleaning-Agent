@@ -6,6 +6,7 @@ from etl.llm.json_utils import parse_llm_json
 
 logger = logging.getLogger(__name__)
 
+from groq import Groq
 from openai import OpenAI
 from dotenv import load_dotenv
 
@@ -161,13 +162,32 @@ def call_openai(system_prompt: str, user_prompt: str) -> str:
     return content.strip()
 
 
-def call_groq(system_prompt: str, user_prompt: str) -> str:
-    """Compatibility wrapper for older code expecting `call_groq()`.
+# ======================================================
+# GROQ CLIENT
+# ======================================================
 
-    Delegates to `call_openai`.
-    """
+def get_groq_client() -> Groq:
+    logger.debug("Entering get_groq_client")
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        raise EnvironmentError("GROQ_API_KEY not set")
+    return Groq(api_key=api_key)
+
+def call_groq(system_prompt: str, user_prompt: str) -> str:
     logger.debug("Entering call_groq")
-    return call_openai(system_prompt, user_prompt)
+    client = get_groq_client()
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        temperature=0.0,
+        max_tokens=800,
+    )
+
+    return response.choices[0].message.content.strip()
 
 # ======================================================
 # VALIDATION
@@ -205,6 +225,7 @@ def generate_plan(
     profile_json = json.dumps(profile, indent=2)
 
     user_prompt = build_user_prompt(profile_json, feedback)
+    #llm_output = call_openai(SYSTEM_PROMPT, user_prompt)
     llm_output = call_groq(SYSTEM_PROMPT, user_prompt)
 
     try:
