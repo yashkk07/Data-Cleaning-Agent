@@ -109,6 +109,12 @@ IMPORTANT SEMANTIC RULES (READ CAREFULLY):
 - semantic_type in ["text", "categorical"] → trim_whitespace
 - duplicate_rows > 0 → remove_duplicates
 
+STRICT SAFETY RULES:
+- NEVER apply normalize_currency if semantic_type == "text"
+- NEVER apply normalize_currency if avg_string_length > 20
+- NEVER apply normalize_currency to free_text or description-like columns
+
+
 {feedback_block}
 
 ALLOWED TOOLS:

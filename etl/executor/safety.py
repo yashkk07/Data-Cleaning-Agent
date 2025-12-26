@@ -33,6 +33,14 @@ def is_tool_safe(
         if meta.get("boolean_string_ratio", 0) > 0.5:
             return False, "Currency symbol appears to be noise in boolean-like column"
 
+        # Block text semantic type
+        if meta.get("semantic_type") == "text":
+            return False, "normalize_currency blocked: text column"
+
+        # Block long text fields
+        if meta.get("avg_string_length", 0) > 20:
+            return False, "normalize_currency blocked: long text"
+
     # ❌ Datetime parsing without semantic evidence
     if tool == "parse_datetime":
         if meta.get("semantic_type") != "datetime":
