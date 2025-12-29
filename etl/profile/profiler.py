@@ -114,7 +114,7 @@ def text_length_stats(series: pd.Series) -> Dict[str, float]:
     }
 
 
-def top_k_values(series: pd.Series, k: int = 5) -> List[str]:
+def top_k_values(series: pd.Series, k: int = 10) -> List[str]:
     logger.debug("Entering top_k_values")
     non_null = series.dropna()
     if non_null.empty:

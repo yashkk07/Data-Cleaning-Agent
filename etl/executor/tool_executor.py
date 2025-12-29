@@ -19,6 +19,12 @@ TOOL_REGISTRY = {
     "drop_column": cleaners.drop_column,
     "normalize_currency": cleaners.normalize_currency,
     "normalize_percentage": cleaners.normalize_percentage,
+    "fillna": cleaners.fillna,
+    "parse_boolean": cleaners.parse_boolean,
+    "normalize_text_case": cleaners.normalize_text_case,
+    "scale_numeric": cleaners.scale_numeric,
+    "cap_outliers": cleaners.cap_outliers,
+    "standardize_categories": cleaners.standardize_categories,
 }
 
 

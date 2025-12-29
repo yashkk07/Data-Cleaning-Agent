@@ -51,4 +51,40 @@ def is_tool_safe(
         if meta.get("numeric_string_ratio", 0) < 0.5:
             return False, "Numeric conversion without numeric_string_ratio >= 0.5"
 
+    # ❌ fillna safety
+    if tool == "fillna":
+        if meta.get("semantic_type") == "index":
+            return False, "fillna blocked: index column"
+
+        if meta.get("missing_pct", 0) < 5:
+            return False, "fillna blocked: missing_pct < 5%"
+
+    # ❌ parse_boolean safety
+    if tool == "parse_boolean":
+        if meta.get("boolean_string_ratio", 0) < 0.8:
+            return False, "parse_boolean blocked: insufficient boolean evidence"
+
+    # ❌ normalize_text_case safety
+    if tool == "normalize_text_case":
+        if meta.get("semantic_type") not in {"text", "categorical"}:
+            return False, "normalize_text_case blocked: non-text column"
+
+    # ❌ standardize_categories safety
+    if tool == "standardize_categories":
+        if meta.get("semantic_type") != "categorical":
+            return False, "standardize_categories blocked: non-categorical column"
+
+    # ❌ scale_numeric safety
+    if tool == "scale_numeric":
+        if meta.get("semantic_type") != "numeric":
+            return False, "scale_numeric blocked: non-numeric column"
+
+        if meta.get("outlier_pct", 0) > 5:
+            return False, "scale_numeric blocked: high outlier_pct"
+
+    # ❌ cap_outliers safety
+    if tool == "cap_outliers":
+        if meta.get("semantic_type") != "numeric":
+            return False, "cap_outliers blocked: non-numeric column"
+
     return True, ""

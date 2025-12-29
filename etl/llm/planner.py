@@ -26,6 +26,12 @@ ALLOWED_TOOLS = [
     "drop_column",
     "normalize_currency",
     "normalize_percentage",
+    "fillna",
+    "parse_boolean",
+    "normalize_text_case",
+    "scale_numeric",
+    "cap_outliers",
+    "standardize_categories",
 ]
 
 PLAN_SCHEMA_EXAMPLE = {
@@ -114,6 +120,35 @@ STRICT SAFETY RULES:
 - NEVER apply normalize_currency if avg_string_length > 20
 - NEVER apply normalize_currency to free_text or description-like columns
 
+STRICT FILLNA RULES:
+- NEVER apply fillna to index columns
+- NEVER apply fillna if missing_pct < 5%
+- For numeric columns:
+  - Use median if skewness > 1
+  - Use mean only if skewness <= 1
+- For text/categorical:
+  - Use mode or constant only
+- NEVER fill datetime unless forward_fill is safe
+
+ADDITIONAL CLEANING HEURISTICS:
+
+BOOLEAN HANDLING:
+- boolean_string_ratio >= 0.9 → parse_boolean
+
+TEXT NORMALIZATION:
+- semantic_type in ["text", "categorical"] AND avg_string_length <= 30
+  → normalize_text_case (mode="lower")
+
+CATEGORY STANDARDIZATION:
+- semantic_type == "categorical" → standardize_categories
+
+OUTLIER HANDLING:
+- semantic_type == "numeric" AND outlier_pct >= 10
+  → cap_outliers (method="iqr")
+
+NUMERIC SCALING (OPTIONAL, LAST STEP ONLY):
+- semantic_type == "numeric" AND outlier_pct < 5 AND missing_pct < 5
+  → scale_numeric (method="zscore")
 
 {feedback_block}
 
@@ -152,8 +187,8 @@ def call_openai(system_prompt: str, user_prompt: str) -> str:
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ],
-        temperature=0.0,
-        max_tokens=800,
+        temperature=0.2,
+        max_tokens=3200,
     )
 
     # extract content
@@ -190,7 +225,7 @@ def call_groq(system_prompt: str, user_prompt: str) -> str:
             {"role": "user", "content": user_prompt},
         ],
         temperature=0.0,
-        max_tokens=800,
+        max_tokens=3200,
     )
 
     return response.choices[0].message.content.strip()
