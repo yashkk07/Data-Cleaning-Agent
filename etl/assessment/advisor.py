@@ -1,6 +1,6 @@
 import json
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 from etl.llm.json_utils import parse_llm_json
 from etl.llm.planner import call_groq, call_openai
@@ -69,11 +69,43 @@ Respond in STRICT JSON with EXACT schema:
 }}
 
 Rules:
-- Dependent variables MUST be numeric or numeric-like
+- Dependent variables MUST be numeric
 - Independent variables MUST exist in the dataset
 - Forecasts must match dataset structure
 - If forecasting is weak, say so explicitly
 """
+
+# ======================================================
+# POST-LLM VALIDATION FILTERS
+# ======================================================
+
+def _filter_dependent_variables(
+    proposed: List[str],
+    profile: Dict[str, Any],
+) -> List[str]:
+    """
+    Keep only raw numeric columns as valid dependent variables.
+    """
+    valid_numeric = {
+        col
+        for col, meta in profile.get("columns", {}).items()
+        if meta.get("semantic_type") == "numeric"
+    }
+
+    return [col for col in proposed if col in valid_numeric]
+
+
+def _filter_independent_variables(
+    proposed: List[str],
+    profile: Dict[str, Any],
+) -> List[str]:
+    """
+    Keep only columns that exist and are usable as features.
+    """
+    valid_columns = set(profile.get("columns", {}).keys())
+
+    return [col for col in proposed if col in valid_columns]
+
 
 # ======================================================
 # PUBLIC API
@@ -103,6 +135,22 @@ def generate_advice(
         raw_output = call_openai(SYSTEM_PROMPT, user_prompt)
 
     try:
-        return parse_llm_json(raw_output)
+        advice = parse_llm_json(raw_output)
     except json.JSONDecodeError:
         raise ValueError(f"Advisor returned invalid JSON:\n{raw_output}")
+
+    # ---------------------------
+    # POST-LLM SAFETY FILTERS
+    # ---------------------------
+
+    advice["dependent_variables"] = _filter_dependent_variables(
+        advice.get("dependent_variables", []),
+        profile,
+    )
+
+    advice["independent_variables"] = _filter_independent_variables(
+        advice.get("independent_variables", []),
+        profile,
+    )
+
+    return advice

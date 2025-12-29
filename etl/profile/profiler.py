@@ -164,11 +164,15 @@ def infer_semantic_type(
     if index_like:
         return "index"
 
-    # 🔒 2. Numeric dtype always wins
+    # ✅ 2. Native pandas datetime dtype → datetime (FIX)
+    if pd.api.types.is_datetime64_any_dtype(series):
+        return "datetime"
+
+    # 🔒 3. Numeric dtype → numeric
     if pd.api.types.is_numeric_dtype(series):
         return "numeric"
 
-    # 🔒 3. Datetime only for object columns with strong evidence
+    # 🔒 4. Object-based inference
     if series.dtype == object:
         if dt_parse_ratio >= 0.8 and dt_string_ratio >= 0.5:
             return "datetime"

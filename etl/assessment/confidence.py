@@ -137,8 +137,8 @@ def compute_confidence(
     return {
         "confidence_score": round(final_score, 3),
         "confidence_band": (
-            "high" if final_score >= 0.75
-            else "medium" if final_score >= 0.45
+            "high" if final_score >= 0.70
+            else "medium" if final_score >= 0.40
             else "low"
         ),
         "signals": {
