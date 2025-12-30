@@ -1,0 +1,11 @@
+salary,currency_salary,completion_pct,is_active,category,posted_date,free_text
+50000.0,50000.0,0.8,Yes,A,2023-01-15,Hello world
+52000.0,52000.0,0.85,No,A,2023-01-16,Some random text
+51000.0,51000.0,0.9,Yes,B,2023-01-17,Another sentence here
+200000.0,200000.0,0.95,Yes,A,2023-01-18,This is a longer piece of text
+49000.0,49000.0,0.7,No,C,2023-01-19,Short
+,,,$,B,2023-01-20,
+48000.0,48000.0,0.65,Yes,C,2023-01-21,More text content
+47000.0,47000.0,0.6,No,B,2023-01-22,Even more words
+46000.0,46000.0,0.55,Yes,A,2023-01-23,Testing profiler
+45000.0,45000.0,0.5,No,C,2023-01-24,Last row

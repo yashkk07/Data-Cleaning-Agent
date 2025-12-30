@@ -1,0 +1,501 @@
+posted_date,salary,completion_pct,is_active,category,region,free_text
+2022-01-01,77451.0,85,No,B,East,Data analyst role
+2022-01-02,67926.0,93,Yes,C,West,Analytics consultant role
+2022-01-03,79715.0,65,Yes,B,South,Senior data scientist position
+2022-01-04,92845.0,96,Yes,A,South,Senior data scientist position
+2022-01-05,66488.0,92,No,A,West,Business intelligence analyst
+2022-01-06,66488.0,81,Yes,B,West,ML engineer opening
+2022-01-07,93688.0,80,No,C,North,Business intelligence analyst
+2022-01-08,81512.0,65,Yes,C,West,Analytics consultant role
+2022-01-09,62958.0,65,No,A,North,Business intelligence analyst
+2022-01-10,78138.0,63,Yes,C,East,Data analyst role
+2022-01-11,63049.0,89,No,B,North,Analytics consultant role
+2022-01-12,63014.0,70,Yes,B,West,Senior data scientist position
+2022-01-13,73629.0,89,Yes,A,West,ML engineer opening
+2022-01-14,41301.0,90,Yes,B,East,Analytics consultant role
+2022-01-15,44126.0,83,Yes,A,West,Analytics consultant role
+2022-01-16,61566.0,68,Yes,B,West,Data analyst role
+2022-01-17,54808.0,62,No,A,South,ML engineer opening
+2022-01-18,74714.0,90,No,C,South,Senior data scientist position
+2022-01-19,56380.0,99,Yes,B,East,Analytics consultant role
+2022-01-20,48815.0,96,Yes,B,North,Analytics consultant role
+2022-01-21,91985.0,95,Yes,A,South,Data analyst role
+2022-01-22,66613.0,83,Yes,A,North,Business intelligence analyst
+2022-01-23,71013.0,90,Yes,B,West,Senior data scientist position
+2022-01-24,48629.0,65,Yes,A,South,ML engineer opening
+2022-01-25,61834.0,61,Yes,B,East,Analytics consultant role
+2022-01-26,71664.0,79,Yes,C,East,Analytics consultant role
+2022-01-27,52735.0,87,Yes,A,East,Senior data scientist position
+2022-01-28,75635.0,70,Yes,B,South,Business intelligence analyst
+2022-01-29,60990.0,63,Yes,C,North,Analytics consultant role
+2022-01-30,65625.0,74,Yes,C,West,Senior data scientist position
+2022-01-31,60974.0,65,No,B,North,Data analyst role
+2022-02-01,97784.0,89,Yes,A,North,Business intelligence analyst
+2022-02-02,69798.0,97,Yes,B,West,ML engineer opening
+2022-02-03,54134.0,61,Yes,C,West,Analytics consultant role
+2022-02-04,82338.0,74,Yes,B,South,
+2022-02-05,51687.0,70,No,A,South,Data analyst role
+2022-02-06,73133.0,67,Yes,C,South,ML engineer opening
+2022-02-07,40605.0,85,Yes,B,South,Senior data scientist position
+2022-02-08,50077.0,64,Yes,A,South,Senior data scientist position
+2022-02-09,72953.0,65,No,C,West,ML engineer opening
+2022-02-10,81077.0,85,No,A,North,Data analyst role
+2022-02-11,72571.0,63,Yes,C,South,Data analyst role
+2022-02-12,68265.0,78,Yes,B,South,Business intelligence analyst
+2022-02-13,65483.0,79,Yes,A,North,Analytics consultant role
+2022-02-14,47822.0,92,No,C,South,ML engineer opening
+2022-02-15,59202.0,79,Yes,A,North,ML engineer opening
+2022-02-16,63090.0,71,No,A,North,ML engineer opening
+2022-02-17,85857.0,60,Yes,B,West,Data analyst role
+2022-02-18,75154.0,85,Yes,A,East,Analytics consultant role
+2022-02-19,43554.0,73,Yes,C,West,Business intelligence analyst
+2022-02-20,74861.0,97,Yes,C,East,Senior data scientist position
+2022-02-21,64224.0,96,Yes,C,East,Senior data scientist position
+2022-02-22,59846.0,70,Yes,C,East,ML engineer opening
+2022-02-23,,95,Yes,B,South,Analytics consultant role
+2022-02-24,85465.0,72,Yes,A,West,Data analyst role
+2022-02-25,83969.0,62,Yes,B,East,Analytics consultant role
+2022-02-26,57412.0,92,Yes,A,North,
+2022-02-27,65362.0,65,No,A,South,Data analyst role
+2022-02-28,74969.0,69,No,A,West,ML engineer opening
+2022-03-01,84633.0,64,No,B,East,Analytics consultant role
+2022-03-02,62812.0,82,No,A,North,Senior data scientist position
+2022-03-03,67215.0,69,Yes,B,West,Data analyst role
+2022-03-04,53405.0,61,Yes,C,West,Business intelligence analyst
+2022-03-05,52057.0,72,Yes,C,South,ML engineer opening
+2022-03-06,82188.0,99,Yes,A,West,Data analyst role
+2022-03-07,90344.0,61,Yes,B,South,Business intelligence analyst
+2022-03-08,68920.0,79,No,C,East,Business intelligence analyst
+2022-03-09,85053.0,60,Yes,B,South,Analytics consultant role
+2022-03-10,75425.0,96,Yes,B,North,Analytics consultant role
+2022-03-11,60323.0,68,Yes,A,South,Analytics consultant role
+2022-03-12,75421.0,76,Yes,C,North,Data analyst role
+2022-03-13,93071.0,68,Yes,A,South,Data analyst role
+2022-03-14,69463.0,70,Yes,A,West,ML engineer opening
+2022-03-15,93470.0,74,No,C,East,Analytics consultant role
+2022-03-16,30704.0,83,Yes,C,North,Business intelligence analyst
+2022-03-17,82329.0,97,Yes,B,South,Senior data scientist position
+2022-03-18,71306.0,94,No,C,South,ML engineer opening
+2022-03-19,65515.0,89,No,B,South,Data analyst role
+2022-03-20,71376.0,90,No,B,West,ML engineer opening
+2022-03-21,40186.0,64,No,B,West,ML engineer opening
+2022-03-22,66705.0,73,Yes,C,North,ML engineer opening
+2022-03-23,75357.0,70,Yes,A,North,ML engineer opening
+2022-03-24,92168.0,68,Yes,B,West,Senior data scientist position
+2022-03-25,62226.0,93,Yes,A,North,Analytics consultant role
+2022-03-26,57873.0,71,Yes,A,East,Business intelligence analyst
+2022-03-27,62474.0,94,Yes,C,East,ML engineer opening
+2022-03-28,83731.0,94,Yes,A,West,ML engineer opening
+2022-03-29,74931.0,60,Yes,A,North,ML engineer opening
+2022-03-30,62054.0,99,Yes,C,South,Analytics consultant role
+2022-03-31,77699.0,81,Yes,B,East,Data analyst role
+2022-04-01,71456.0,88,Yes,A,West,Data analyst role
+2022-04-02,84530.0,67,Yes,C,North,Senior data scientist position
+2022-04-03,59469.0,70,No,A,West,Data analyst role
+2022-04-04,65085.0,96,Yes,A,South,ML engineer opening
+2022-04-05,64118.0,73,Yes,B,East,ML engineer opening
+2022-04-06,48047.0,89,Yes,A,West,ML engineer opening
+2022-04-07,74442.0,94,No,C,West,Senior data scientist position
+2022-04-08,73916.0,80,Yes,A,West,ML engineer opening
+2022-04-09,70077.0,96,Yes,B,South,Data analyst role
+2022-04-10,66481.0,64,Yes,B,West,Analytics consultant role
+2022-04-11,48769.0,78,Yes,C,South,Analytics consultant role
+2022-04-12,63690.0,73,No,B,South,Business intelligence analyst
+2022-04-13,64859.0,85,Yes,A,South,Data analyst role
+2022-04-14,57966.0,63,Yes,B,East,ML engineer opening
+2022-04-15,67581.0,84,No,C,East,Analytics consultant role
+2022-04-16,76061.0,84,No,B,West,Data analyst role
+2022-04-17,98293.0,77,Yes,B,West,Analytics consultant role
+2022-04-18,72619.0,99,No,B,East,ML engineer opening
+2022-04-19,73863.0,67,Yes,C,North,Analytics consultant role
+2022-04-20,68883.0,98,Yes,B,East,Business intelligence analyst
+2022-04-21,41218.0,99,Yes,B,South,Business intelligence analyst
+2022-04-22,69602.0,73,Yes,A,East,Analytics consultant role
+2022-04-23,70903.0,91,Yes,C,South,Data analyst role
+2022-04-24,106949.0,97,No,B,West,Data analyst role
+2022-04-25,67115.0,92,No,C,North,Data analyst role
+2022-04-26,74523.0,82,Yes,B,West,Analytics consultant role
+2022-04-27,69479.0,74,No,B,South,Data analyst role
+2022-04-28,52470.0,92,Yes,B,South,ML engineer opening
+2022-04-29,87142.0,84,Yes,A,South,Business intelligence analyst
+2022-04-30,81279.0,76,Yes,A,North,ML engineer opening
+2022-05-01,81865.0,92,Yes,A,East,Data analyst role
+2022-05-02,56359.0,61,No,C,West,ML engineer opening
+2022-05-03,91042.0,73,No,C,West,Data analyst role
+2022-05-04,48972.0,99,Yes,A,East,Analytics consultant role
+2022-05-05,78803.0,99,Yes,C,West,ML engineer opening
+2022-05-06,,98,Yes,B,North,Analytics consultant role
+2022-05-07,55142.0,65,Yes,B,West,Analytics consultant role
+2022-05-08,61506.0,65,No,B,South,Senior data scientist position
+2022-05-09,71495.0,62,Yes,A,East,Data analyst role
+2022-05-10,62448.0,66,Yes,C,North,Business intelligence analyst
+2022-05-11,46740.0,67,Yes,A,East,Data analyst role
+2022-05-12,71028.0,74,Yes,C,North,Business intelligence analyst
+2022-05-13,54065.0,88,Yes,B,South,Data analyst role
+2022-05-14,77104.0,92,Yes,A,East,Analytics consultant role
+2022-05-15,56209.0,89,Yes,C,West,ML engineer opening
+2022-05-16,93249.0,98,Yes,C,North,ML engineer opening
+2022-05-17,58251.0,86,No,B,East,Senior data scientist position
+2022-05-18,65169.0,95,Yes,A,West,Business intelligence analyst
+2022-05-19,82203.0,88,Yes,A,East,Business intelligence analyst
+2022-05-20,51537.0,97,No,A,East,Business intelligence analyst
+2022-05-21,73412.0,92,Yes,B,East,Analytics consultant role
+2022-05-22,89607.0,96,No,A,North,Business intelligence analyst
+2022-05-23,45888.0,86,Yes,B,West,ML engineer opening
+2022-05-24,72770.0,92,Yes,B,South,Analytics consultant role
+2022-05-25,73898.0,63,Yes,B,North,Data analyst role
+2022-05-26,81727.0,81,Yes,C,North,Business intelligence analyst
+2022-05-27,51446.0,61,Yes,A,North,Business intelligence analyst
+2022-05-28,50193.0,69,Yes,A,South,Data analyst role
+2022-05-29,77829.0,64,Yes,B,West,Business intelligence analyst
+2022-05-30,74455.0,69,Yes,B,West,Data analyst role
+2022-05-31,73757.0,92,Yes,A,West,Analytics consultant role
+2022-06-01,75197.0,97,No,B,East,
+2022-06-02,59800.0,72,No,A,East,Data analyst role
+2022-06-03,73484.0,90,No,C,East,Senior data scientist position
+2022-06-04,74396.0,95,Yes,B,South,Data analyst role
+2022-06-05,59285.0,83,Yes,A,East,Business intelligence analyst
+2022-06-06,97987.0,74,Yes,B,South,Analytics consultant role
+2022-06-07,77107.0,88,Yes,A,West,Analytics consultant role
+2022-06-08,52130.0,67,Yes,A,East,Data analyst role
+2022-06-09,79848.0,64,Yes,B,East,ML engineer opening
+2022-06-10,55380.0,88,Yes,C,North,Senior data scientist position
+2022-06-11,81806.0,63,Yes,A,South,Analytics consultant role
+2022-06-12,87379.0,71,Yes,A,West,Business intelligence analyst
+2022-06-13,57690.0,61,Yes,A,North,Business intelligence analyst
+2022-06-14,84451.0,86,Yes,C,North,ML engineer opening
+2022-06-15,76192.0,90,No,C,West,Analytics consultant role
+2022-06-16,82331.0,95,Yes,B,North,Data analyst role
+2022-06-17,98452.0,95,Yes,C,South,Business intelligence analyst
+2022-06-18,66319.0,85,Yes,B,South,
+2022-06-19,58694.0,86,Yes,B,East,Analytics consultant role
+2022-06-20,,64,Yes,C,North,Analytics consultant role
+2022-06-21,57763.0,79,Yes,B,East,Analytics consultant role
+2022-06-22,68843.0,70,Yes,C,North,Analytics consultant role
+2022-06-23,75117.0,69,Yes,B,South,Analytics consultant role
+2022-06-24,74150.0,99,Yes,C,South,Business intelligence analyst
+2022-06-25,82408.0,97,Yes,C,South,ML engineer opening
+2022-06-26,70195.0,65,No,B,North,Analytics consultant role
+2022-06-27,91803.0,67,Yes,A,South,Senior data scientist position
+2022-06-28,66030.0,82,Yes,B,North,Senior data scientist position
+2022-06-29,110803.0,85,No,C,East,ML engineer opening
+2022-06-30,79385.0,71,Yes,A,North,Data analyst role
+2022-07-01,57143.0,85,Yes,B,East,Data analyst role
+2022-07-02,53937.0,72,Yes,B,North,Data analyst role
+2022-07-03,77237.0,99,Yes,B,East,
+2022-07-04,66648.0,77,No,A,South,Data analyst role
+2022-07-05,80710.0,84,Yes,C,East,Business intelligence analyst
+2022-07-06,77099.0,92,No,B,South,Analytics consultant role
+2022-07-07,68908.0,99,Yes,B,South,Senior data scientist position
+2022-07-08,57298.0,71,Yes,B,East,ML engineer opening
+2022-07-09,47277.0,95,Yes,B,North,ML engineer opening
+2022-07-10,63302.0,63,Yes,B,North,Analytics consultant role
+2022-07-11,82846.0,64,Yes,C,West,Senior data scientist position
+2022-07-12,73211.0,96,No,C,North,Data analyst role
+2022-07-13,51314.0,67,Yes,B,West,
+2022-07-14,72598.0,87,No,A,North,Business intelligence analyst
+2022-07-15,75780.0,90,Yes,C,North,Business intelligence analyst
+2022-07-16,56742.0,68,No,A,South,Data analyst role
+2022-07-17,72306.0,88,Yes,C,West,ML engineer opening
+2022-07-18,70873.0,73,Yes,B,North,ML engineer opening
+2022-07-19,52855.0,99,No,C,West,Business intelligence analyst
+2022-07-20,75367.0,81,Yes,B,South,Analytics consultant role
+2022-07-21,78412.0,70,Yes,C,South,Data analyst role
+2022-07-22,86246.0,82,Yes,B,West,Business intelligence analyst
+2022-07-23,85807.0,60,Yes,B,South,
+2022-07-24,49335.0,96,No,B,East,Data analyst role
+2022-07-25,55933.0,80,Yes,B,East,Data analyst role
+2022-07-26,77726.0,85,Yes,A,South,ML engineer opening
+2022-07-27,77707.0,95,Yes,B,East,Analytics consultant role
+2022-07-28,77726.0,82,Yes,A,North,Analytics consultant role
+2022-07-29,127791.0,60,Yes,A,West,Data analyst role
+2022-07-30,78563.0,99,Yes,B,North,Senior data scientist position
+2022-07-31,87033.0,74,Yes,A,West,Business intelligence analyst
+2022-08-01,84310.0,80,Yes,C,South,Business intelligence analyst
+2022-08-02,,68,Yes,B,North,Data analyst role
+2022-08-03,65271.0,68,Yes,A,South,Senior data scientist position
+2022-08-04,81385.0,69,Yes,B,South,ML engineer opening
+2022-08-05,58408.0,85,Yes,B,West,Data analyst role
+2022-08-06,66448.0,94,Yes,B,West,Data analyst role
+2022-08-07,62720.0,84,Yes,A,West,Business intelligence analyst
+2022-08-08,71228.0,85,Yes,C,North,Data analyst role
+2022-08-09,104720.0,70,Yes,C,East,Data analyst role
+2022-08-10,41991.0,97,Yes,A,West,Data analyst role
+2022-08-11,80294.0,61,Yes,B,West,Business intelligence analyst
+2022-08-12,45809.0,66,Yes,A,North,ML engineer opening
+2022-08-13,62921.0,77,Yes,A,West,ML engineer opening
+2022-08-14,86334.0,86,Yes,A,North,Data analyst role
+2022-08-15,70964.0,93,Yes,B,South,Business intelligence analyst
+2022-08-16,53834.0,86,No,A,West,ML engineer opening
+2022-08-17,59270.0,76,Yes,B,West,ML engineer opening
+2022-08-18,80194.0,83,Yes,A,South,ML engineer opening
+2022-08-19,59045.0,84,Yes,C,South,Business intelligence analyst
+2022-08-20,73247.0,66,Yes,A,South,Business intelligence analyst
+2022-08-21,70684.0,65,Yes,A,West,Data analyst role
+2022-08-22,60226.0,83,No,C,East,Analytics consultant role
+2022-08-23,102159.0,92,Yes,B,East,ML engineer opening
+2022-08-24,79509.0,88,Yes,B,East,Analytics consultant role
+2022-08-25,39623.0,81,Yes,A,West,Business intelligence analyst
+2022-08-26,72797.0,85,Yes,C,South,Business intelligence analyst
+2022-08-27,60073.0,87,Yes,B,West,Business intelligence analyst
+2022-08-28,82787.0,80,Yes,A,South,Analytics consultant role
+2022-08-29,58112.0,66,Yes,C,West,Business intelligence analyst
+2022-08-30,68279.0,76,Yes,B,West,Data analyst role
+2022-08-31,77575.0,79,Yes,B,South,Business intelligence analyst
+2022-09-01,82986.0,79,Yes,C,East,Senior data scientist position
+2022-09-02,51996.0,81,Yes,C,South,Analytics consultant role
+2022-09-03,64982.0,87,Yes,C,North,Senior data scientist position
+2022-09-04,62876.0,99,Yes,C,North,Business intelligence analyst
+2022-09-05,60200.0,66,Yes,A,South,Data analyst role
+2022-09-06,96482.0,60,Yes,C,West,ML engineer opening
+2022-09-07,76075.0,91,Yes,B,North,Business intelligence analyst
+2022-09-08,51087.0,72,No,B,North,Data analyst role
+2022-09-09,83768.0,89,Yes,A,West,Analytics consultant role
+2022-09-10,101832.0,82,Yes,B,West,Senior data scientist position
+2022-09-11,85487.0,78,Yes,B,East,Senior data scientist position
+2022-09-12,47209.0,91,Yes,C,West,Senior data scientist position
+2022-09-13,62736.0,89,Yes,B,South,Analytics consultant role
+2022-09-14,89004.0,88,Yes,A,South,Data analyst role
+2022-09-15,59385.0,88,No,C,East,Analytics consultant role
+2022-09-16,76657.0,89,Yes,C,North,Senior data scientist position
+2022-09-17,81620.0,75,Yes,A,North,Business intelligence analyst
+2022-09-18,56096.0,99,Yes,C,West,ML engineer opening
+2022-09-19,69107.0,78,No,C,South,Analytics consultant role
+2022-09-20,21381.0,77,Yes,A,North,Analytics consultant role
+2022-09-21,54634.0,60,No,C,East,Data analyst role
+2022-09-22,66211.0,73,Yes,A,East,Data analyst role
+2022-09-23,51283.0,61,No,A,South,Analytics consultant role
+2022-09-24,94486.0,87,Yes,B,East,Senior data scientist position
+2022-09-25,48548.0,89,No,B,East,ML engineer opening
+2022-09-26,63399.0,97,Yes,C,South,Data analyst role
+2022-09-27,71961.0,63,No,C,West,Senior data scientist position
+2022-09-28,91619.0,60,Yes,A,West,Business intelligence analyst
+2022-09-29,48462.0,67,Yes,C,East,Data analyst role
+2022-09-30,87447.0,88,Yes,A,West,Senior data scientist position
+2022-10-01,70153.0,98,Yes,A,West,Senior data scientist position
+2022-10-02,55277.0,62,Yes,C,East,ML engineer opening
+2022-10-03,76932.0,91,Yes,A,West,ML engineer opening
+2022-10-04,,69,Yes,B,East,Business intelligence analyst
+2022-10-05,60997.0,69,Yes,C,North,Senior data scientist position
+2022-10-06,71047.0,78,No,B,South,Senior data scientist position
+2022-10-07,64220.0,93,Yes,C,South,ML engineer opening
+2022-10-08,71703.0,92,No,A,West,Data analyst role
+2022-10-09,79932.0,82,Yes,C,West,Data analyst role
+2022-10-10,93790.0,87,Yes,B,West,Analytics consultant role
+2022-10-11,51433.0,91,Yes,A,South,ML engineer opening
+2022-10-12,101996.0,66,Yes,C,North,Analytics consultant role
+2022-10-13,40719.0,88,Yes,C,North,
+2022-10-14,67723.0,67,Yes,C,South,Business intelligence analyst
+2022-10-15,78825.0,60,Yes,B,North,Senior data scientist position
+2022-10-16,74215.0,62,Yes,B,South,Business intelligence analyst
+2022-10-17,60660.0,83,No,C,North,ML engineer opening
+2022-10-18,66878.0,82,No,A,East,Senior data scientist position
+2022-10-19,62605.0,67,Yes,A,East,Data analyst role
+2022-10-20,61160.0,96,Yes,B,South,Data analyst role
+2022-10-21,82744.0,62,Yes,A,North,Analytics consultant role
+2022-10-22,75355.0,92,Yes,B,West,ML engineer opening
+2022-10-23,59606.0,87,Yes,C,North,ML engineer opening
+2022-10-24,83494.0,67,Yes,B,East,Data analyst role
+2022-10-25,,93,Yes,B,East,Business intelligence analyst
+2022-10-26,82193.0,94,No,C,North,Senior data scientist position
+2022-10-27,79444.0,91,Yes,A,North,Business intelligence analyst
+2022-10-28,57565.0,83,Yes,B,West,Business intelligence analyst
+2022-10-29,61597.0,73,Yes,B,West,Data analyst role
+2022-10-30,81209.0,91,Yes,C,North,Data analyst role
+2022-10-31,79156.0,75,Yes,A,North,Data analyst role
+2022-11-01,69686.0,63,No,B,North,Analytics consultant role
+2022-11-02,71760.0,96,Yes,C,North,Business intelligence analyst
+2022-11-03,89165.0,80,No,B,South,ML engineer opening
+2022-11-04,61126.0,73,Yes,C,North,Senior data scientist position
+2022-11-05,78206.0,90,Yes,A,West,Analytics consultant role
+2022-11-06,66967.0,77,Yes,A,East,ML engineer opening
+2022-11-07,66735.0,66,Yes,A,South,Business intelligence analyst
+2022-11-08,86482.0,69,No,A,North,Data analyst role
+2022-11-09,82381.0,66,No,B,East,Business intelligence analyst
+2022-11-10,82203.0,92,Yes,B,South,Senior data scientist position
+2022-11-11,89582.0,82,Yes,A,East,Analytics consultant role
+2022-11-12,70315.0,80,Yes,A,North,Analytics consultant role
+2022-11-13,80229.0,78,No,A,North,Senior data scientist position
+2022-11-14,65346.0,78,Yes,B,West,ML engineer opening
+2022-11-15,74862.0,95,Yes,A,North,ML engineer opening
+2022-11-16,,88,Yes,A,North,Analytics consultant role
+2022-11-17,71455.0,77,Yes,A,South,Analytics consultant role
+2022-11-18,78927.0,61,Yes,C,West,Data analyst role
+2022-11-19,,60,Yes,A,South,ML engineer opening
+2022-11-20,101386.0,64,No,C,East,Senior data scientist position
+2022-11-21,54910.0,79,Yes,C,North,ML engineer opening
+2022-11-22,51787.0,70,Yes,A,East,Data analyst role
+2022-11-23,87372.0,61,No,C,South,Analytics consultant role
+2022-11-24,81875.0,62,Yes,A,North,Analytics consultant role
+2022-11-25,79362.0,82,No,B,North,Data analyst role
+2022-11-26,79425.0,71,Yes,B,South,Senior data scientist position
+2022-11-27,69816.0,79,Yes,B,South,Analytics consultant role
+2022-11-28,56541.0,64,No,B,South,Business intelligence analyst
+2022-11-29,71137.0,96,Yes,C,South,Analytics consultant role
+2022-11-30,59843.0,97,Yes,A,South,Business intelligence analyst
+2022-12-01,84627.0,89,Yes,A,North,Data analyst role
+2022-12-02,67794.0,68,Yes,A,South,Data analyst role
+2022-12-03,57618.0,93,Yes,B,North,Analytics consultant role
+2022-12-04,65179.0,94,Yes,B,North,ML engineer opening
+2022-12-05,76194.0,81,No,A,South,Business intelligence analyst
+2022-12-06,61544.0,83,Yes,B,South,Senior data scientist position
+2022-12-07,57667.0,76,Yes,A,West,Analytics consultant role
+2022-12-08,73655.0,69,Yes,A,North,Senior data scientist position
+2022-12-09,73674.0,89,Yes,A,South,Analytics consultant role
+2022-12-10,62396.0,82,Yes,A,South,ML engineer opening
+2022-12-11,62934.0,91,No,A,South,ML engineer opening
+2022-12-12,73481.0,76,Yes,A,West,ML engineer opening
+2022-12-13,48279.0,76,Yes,A,West,ML engineer opening
+2022-12-14,48888.0,73,Yes,B,East,Data analyst role
+2022-12-15,59223.0,68,Yes,A,North,Data analyst role
+2022-12-16,66798.0,99,Yes,A,East,Business intelligence analyst
+2022-12-17,74664.0,61,Yes,B,South,Senior data scientist position
+2022-12-18,92130.0,84,No,B,West,Analytics consultant role
+2022-12-19,82865.0,98,Yes,B,West,Analytics consultant role
+2022-12-20,67601.0,68,Yes,A,East,Data analyst role
+2022-12-21,69715.0,81,Yes,C,West,Analytics consultant role
+2022-12-22,54962.0,63,Yes,C,South,Data analyst role
+2022-12-23,69722.0,85,Yes,B,West,Business intelligence analyst
+2022-12-24,65670.0,88,Yes,C,East,Senior data scientist position
+2022-12-25,74841.0,93,Yes,B,South,Business intelligence analyst
+2022-12-26,57592.0,82,Yes,A,East,ML engineer opening
+2022-12-27,77790.0,96,Yes,C,West,ML engineer opening
+2022-12-28,92991.0,70,Yes,A,East,ML engineer opening
+2022-12-29,68369.0,65,No,C,East,Business intelligence analyst
+2022-12-30,76026.0,77,No,A,North,Analytics consultant role
+2022-12-31,80352.0,80,Yes,C,West,Senior data scientist position
+2023-01-01,63982.0,95,No,A,West,ML engineer opening
+2023-01-02,73361.0,97,Yes,A,East,ML engineer opening
+2023-01-03,70189.0,93,Yes,C,North,ML engineer opening
+2023-01-04,71465.0,76,Yes,A,West,Senior data scientist position
+2023-01-05,58405.0,96,Yes,A,South,ML engineer opening
+2023-01-06,70368.0,84,Yes,A,East,Senior data scientist position
+2023-01-07,77470.0,97,No,C,West,ML engineer opening
+2023-01-08,91767.0,71,Yes,C,South,Business intelligence analyst
+2023-01-09,84389.0,82,Yes,A,West,Business intelligence analyst
+2023-01-10,102298.0,81,Yes,A,South,Senior data scientist position
+2023-01-11,58490.0,80,No,C,East,Business intelligence analyst
+2023-01-12,83085.0,86,Yes,C,West,Senior data scientist position
+2023-01-13,72750.0,90,Yes,A,West,Business intelligence analyst
+2023-01-14,102847.0,65,Yes,A,North,Business intelligence analyst
+2023-01-15,57876.0,86,Yes,A,East,Senior data scientist position
+2023-01-16,57404.0,99,No,B,South,Analytics consultant role
+2023-01-17,61009.0,93,No,C,West,Business intelligence analyst
+2023-01-18,38142.0,71,Yes,B,West,ML engineer opening
+2023-01-19,62114.0,66,No,C,South,Analytics consultant role
+2023-01-20,58613.0,69,Yes,C,East,Senior data scientist position
+2023-01-21,72256.0,76,No,C,North,Analytics consultant role
+2023-01-22,75126.0,85,Yes,C,North,Data analyst role
+2023-01-23,98143.0,80,Yes,C,West,Data analyst role
+2023-01-24,84256.0,87,Yes,C,South,Business intelligence analyst
+2023-01-25,61346.0,61,Yes,C,West,Business intelligence analyst
+2023-01-26,56524.0,60,Yes,B,South,ML engineer opening
+2023-01-27,77379.0,95,Yes,A,North,Analytics consultant role
+2023-01-28,50197.0,85,Yes,A,East,Data analyst role
+2023-01-29,,88,Yes,B,South,Business intelligence analyst
+2023-01-30,87692.0,80,Yes,B,North,Analytics consultant role
+2023-01-31,62962.0,70,Yes,B,West,Business intelligence analyst
+2023-02-01,44303.0,99,No,B,South,Business intelligence analyst
+2023-02-02,90308.0,70,Yes,C,East,Data analyst role
+2023-02-03,68282.0,95,Yes,A,West,Data analyst role
+2023-02-04,88567.0,98,Yes,C,West,Business intelligence analyst
+2023-02-05,46084.0,99,No,A,North,Senior data scientist position
+2023-02-06,61009.0,94,Yes,A,South,Business intelligence analyst
+2023-02-07,70079.0,93,Yes,B,West,Business intelligence analyst
+2023-02-08,70705.0,83,No,C,East,ML engineer opening
+2023-02-09,63249.0,81,No,B,South,ML engineer opening
+2023-02-10,79343.0,64,Yes,C,East,ML engineer opening
+2023-02-11,53986.0,92,Yes,A,West,Senior data scientist position
+2023-02-12,67864.0,95,Yes,B,East,Senior data scientist position
+2023-02-13,71804.0,79,No,B,North,Business intelligence analyst
+2023-02-14,77717.0,78,Yes,A,East,ML engineer opening
+2023-02-15,80674.0,94,Yes,A,South,Senior data scientist position
+2023-02-16,53130.0,76,No,A,East,Data analyst role
+2023-02-17,46988.0,93,Yes,B,East,Business intelligence analyst
+2023-02-18,89165.0,68,Yes,C,North,Analytics consultant role
+2023-02-19,74985.0,85,Yes,B,East,Business intelligence analyst
+2023-02-20,58773.0,61,Yes,C,East,Analytics consultant role
+2023-02-21,93267.0,68,Yes,B,West,ML engineer opening
+2023-02-22,71735.0,68,Yes,B,West,Analytics consultant role
+2023-02-23,87689.0,99,Yes,A,South,ML engineer opening
+2023-02-24,71013.0,76,Yes,C,West,Data analyst role
+2023-02-25,100911.0,60,No,B,West,Analytics consultant role
+2023-02-26,96330.0,84,Yes,B,West,Business intelligence analyst
+2023-02-27,66266.0,99,No,A,West,ML engineer opening
+2023-02-28,84574.0,84,Yes,A,North,Business intelligence analyst
+2023-03-01,79681.0,98,No,C,West,Senior data scientist position
+2023-03-02,90529.0,94,Yes,B,North,ML engineer opening
+2023-03-03,55526.0,62,Yes,C,North,Analytics consultant role
+2023-03-04,80291.0,96,Yes,B,West,ML engineer opening
+2023-03-05,85876.0,89,No,C,East,Business intelligence analyst
+2023-03-06,43619.0,97,Yes,A,North,Data analyst role
+2023-03-07,52251.0,93,Yes,B,East,ML engineer opening
+2023-03-08,39412.0,71,Yes,C,East,Analytics consultant role
+2023-03-09,65959.0,78,No,A,West,Senior data scientist position
+2023-03-10,80763.0,96,Yes,A,South,Data analyst role
+2023-03-11,92535.0,76,Yes,C,West,Senior data scientist position
+2023-03-12,71111.0,69,Yes,B,South,ML engineer opening
+2023-03-13,94429.0,71,No,B,South,Business intelligence analyst
+2023-03-14,49298.0,75,Yes,A,West,Business intelligence analyst
+2023-03-15,44449.0,83,Yes,B,West,Analytics consultant role
+2023-03-16,69167.0,78,Yes,B,South,Business intelligence analyst
+2023-03-17,75761.0,67,Yes,B,West,Data analyst role
+2023-03-18,69510.0,90,Yes,A,South,Business intelligence analyst
+2023-03-19,38988.0,80,Yes,C,East,Analytics consultant role
+2023-03-20,68663.0,76,Yes,B,West,ML engineer opening
+2023-03-21,50433.0,82,Yes,A,East,ML engineer opening
+2023-03-22,80045.0,96,Yes,A,North,Business intelligence analyst
+2023-03-23,75499.0,75,Yes,C,East,Senior data scientist position
+2023-03-24,55902.0,65,Yes,B,East,ML engineer opening
+2023-03-25,62292.0,67,Yes,B,South,Business intelligence analyst
+2023-03-26,54112.0,84,Yes,C,East,Analytics consultant role
+2023-03-27,69060.0,77,Yes,C,West,Business intelligence analyst
+2023-03-28,84327.0,84,Yes,A,South,ML engineer opening
+2023-03-29,55214.0,71,Yes,A,North,Analytics consultant role
+2023-03-30,77561.0,74,Yes,C,West,Business intelligence analyst
+2023-03-31,62046.0,85,Yes,B,North,Data analyst role
+2023-04-01,58107.0,85,No,A,East,Analytics consultant role
+2023-04-02,68395.0,91,Yes,A,West,Data analyst role
+2023-04-03,54471.0,69,Yes,B,West,Senior data scientist position
+2023-04-04,61695.0,75,Yes,A,North,Analytics consultant role
+2023-04-05,52032.0,66,Yes,B,West,Data analyst role
+2023-04-06,99471.0,76,Yes,B,West,ML engineer opening
+2023-04-07,70529.0,82,Yes,B,West,ML engineer opening
+2023-04-08,59504.0,85,Yes,C,East,Senior data scientist position
+2023-04-09,,80,Yes,C,North,Analytics consultant role
+2023-04-10,68315.0,81,Yes,C,West,Analytics consultant role
+2023-04-11,66685.0,66,Yes,B,South,Analytics consultant role
+2023-04-12,79213.0,73,No,B,South,Senior data scientist position
+2023-04-13,81363.0,74,Yes,C,South,Analytics consultant role
+2023-04-14,62042.0,66,No,A,South,ML engineer opening
+2023-04-15,61363.0,68,Yes,B,East,Data analyst role
+2023-04-16,65874.0,67,Yes,A,West,ML engineer opening
+2023-04-17,35471.0,82,Yes,A,North,ML engineer opening
+2023-04-18,47272.0,88,Yes,B,West,Data analyst role
+2023-04-19,90503.0,77,No,B,East,ML engineer opening
+2023-04-20,94675.0,90,Yes,A,South,Senior data scientist position
+2023-04-21,66264.0,89,No,A,East,Data analyst role
+2023-04-22,78648.0,98,Yes,C,West,ML engineer opening
+2023-04-23,74669.0,94,No,C,North,Business intelligence analyst
+2023-04-24,116183.0,77,Yes,B,East,ML engineer opening
+2023-04-25,86794.0,98,Yes,C,North,Senior data scientist position
+2023-04-26,68081.0,76,Yes,C,East,Analytics consultant role
+2023-04-27,55667.0,73,Yes,C,North,ML engineer opening
+2023-04-28,45903.0,90,Yes,C,North,Analytics consultant role
+2023-04-29,73052.0,83,Yes,A,South,Business intelligence analyst
+2023-04-30,58655.0,94,No,B,North,ML engineer opening
+2023-05-01,48666.0,93,Yes,C,South,Data analyst role
+2023-05-02,60301.0,62,Yes,A,West,Analytics consultant role
+2023-05-03,53777.0,96,Yes,A,West,Business intelligence analyst
+2023-05-04,95307.0,99,Yes,A,South,Data analyst role
+2023-05-05,83225.0,85,Yes,C,South,Data analyst role
+2023-05-06,69880.0,82,Yes,C,East,Data analyst role
+2023-05-07,92199.0,98,Yes,B,East,Data analyst role
+2023-05-08,71161.0,74,Yes,C,East,ML engineer opening
+2023-05-09,57081.0,63,Yes,C,West,ML engineer opening
+2023-05-10,92847.0,88,Yes,A,East,ML engineer opening
+2023-05-11,78084.0,81,Yes,B,North,Business intelligence analyst
+2023-05-12,54441.0,84,Yes,C,North,Business intelligence analyst
+2023-05-13,67145.0,72,Yes,C,East,Business intelligence analyst
+2023-05-14,56866.0,77,Yes,A,North,Senior data scientist position
+2023-05-15,49258.0,92,Yes,A,West,Business intelligence analyst

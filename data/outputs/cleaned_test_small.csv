@@ -1,0 +1,11 @@
+posted_date,salary,category,is_active,completion_pct,free_text
+2024-01-01,50000.0,A,Yes,0.8,Good job
+2024-01-02,52000.0,B,No,0.85,Average
+2024-01-03,51000.0,A,Yes,0.9,Nice role
+2024-01-04,,C,Yes,0.7,Missing salary
+2024-01-05,49000.0,B,No,0.95,Short
+2024-01-06,48000.0,A,Yes,0.88,Okay
+2024-01-07,47000.0,C,No,0.82,Text
+2024-01-08,46000.0,B,Yes,0.78,Data
+2024-01-09,45000.0,A,Yes,0.76,Info
+2024-01-10,44000.0,C,No,0.74,Notes

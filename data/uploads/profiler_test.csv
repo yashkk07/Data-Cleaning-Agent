@@ -1,0 +1,11 @@
+index_id,salary,currency_salary,completion_pct,is_active,category,posted_date,free_text
+0,50000,$50000,80%,Yes,A,2023-01-15,Hello world
+1,52000,$52000,85%,No,A,2023-01-16,Some random text
+2,51000,$51000,90%,Yes,B,2023-01-17,Another sentence here
+3,200000,$200000,95%,Yes,A,2023-01-18,This is a longer piece of text
+4,49000,$49000,70%,No,C,2023-01-19,Short
+5,,,$,$,B,2023-01-20,
+6,48000,$48000,65%,Yes,C,2023-01-21,More text content
+7,47000,$47000,60%,No,B,2023-01-22,Even more words
+8,46000,$46000,55%,Yes,A,2023-01-23,Testing profiler
+9,45000,$45000,50%,No,C,2023-01-24,Last row

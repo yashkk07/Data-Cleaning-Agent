@@ -1,15 +1,35 @@
 import logging
+import os
 import pandas as pd
 import chardet
-from typing import Tuple, Dict
+from typing import Any, Tuple, Dict
+from pathlib import Path
+from etl.extract.json_utils import detect_json_shape
 
 logger = logging.getLogger(__name__)
 
 
-class CSVReadError(Exception):
-    """Raised when CSV cannot be read safely."""
+class StructuredReadError(Exception):
+    """Raised when a structured file cannot be read safely."""
     pass
 
+# =====================================================
+# File type detection
+# =====================================================
+
+def detect_file_type(file_path: str) -> str:
+    ext = Path(file_path).suffix.lower()
+
+    if ext in {".csv", ".tsv", ".txt"}:
+        return "csv"
+    if ext in {".xlsx", ".xls"}:
+        return "excel"
+    if ext == ".json":
+        return "json"
+    if ext == ".parquet":
+        return "parquet"
+
+    raise StructuredReadError(f"Unsupported file type: {ext}")
 
 def detect_encoding(file_path: str, sample_size: int = 10000) -> str:
     """
@@ -23,7 +43,7 @@ def detect_encoding(file_path: str, sample_size: int = 10000) -> str:
     encoding = result.get("encoding")
 
     if not encoding:
-        raise CSVReadError("Failed to detect file encoding")
+        raise StructuredReadError("Failed to detect file encoding")
 
     return encoding
 
@@ -42,7 +62,7 @@ def detect_delimiter(file_path: str, encoding: str) -> str:
     detected = max(delimiter_counts, key=delimiter_counts.get)
 
     if delimiter_counts[detected] == 0:
-        raise CSVReadError("Failed to detect delimiter")
+        raise StructuredReadError("Failed to detect delimiter")
 
     return detected
 
@@ -71,7 +91,7 @@ def read_csv_safe(
 
         try:
             delimiter = detect_delimiter(file_path, encoding)
-        except CSVReadError:
+        except StructuredReadError:
             # Fallback: assume single-column CSV
             delimiter = ","
 
@@ -97,9 +117,108 @@ def read_csv_safe(
         metadata["columns_read"] = len(df.columns)
 
         if df.empty:
-            raise CSVReadError("CSV read successfully but contains no data")
+            raise StructuredReadError("CSV read successfully but contains no data")
 
         return df, metadata
 
     except Exception as e:
-        raise CSVReadError(f"CSV ingestion failed: {str(e)}")
+        raise StructuredReadError(f"CSV ingestion failed: {str(e)}")
+    
+def read_excel_safe(file_path: str) -> Tuple[pd.DataFrame, Dict[str, Any]]:
+    logger.debug("Reading Excel: %s", file_path)
+
+    df = pd.read_excel(file_path)
+
+    if df.empty:
+        raise StructuredReadError("Excel file is empty")
+
+    return df, {
+        "file_type": "excel",
+        "rows_read": len(df),
+        "columns_read": len(df.columns),
+        "sheet_names": pd.ExcelFile(file_path).sheet_names,
+    }
+
+
+def read_json_safe(file_path: str) -> Tuple[pd.DataFrame, Dict[str, Any]]:
+    """
+    Safely read JSON files with structure detection.
+
+    Supports:
+    - List of records
+    - Dict of columns
+    - Nested records
+    - Single JSON object
+    - Line-delimited JSON (fallback)
+    """
+
+    logger.debug("Reading JSON: %s", file_path)
+
+    # ---------- First attempt: structured JSON ----------
+    try:
+        df = pd.read_json(file_path)
+        shape = detect_json_shape(df)
+
+    except ValueError:
+        # ---------- Fallback: line-delimited JSON ----------
+        try:
+            df = pd.read_json(file_path, lines=True)
+            shape = "json_lines"
+        except Exception as e:
+            raise StructuredReadError(f"JSON ingestion failed: {str(e)}")
+
+    if df.empty:
+        raise StructuredReadError("JSON file is empty or not tabular")
+
+    return df, {
+        "file_type": "json",
+        "json_shape": shape,
+        "rows_read": len(df),
+        "columns_read": len(df.columns),
+    }
+
+
+def read_parquet_safe(file_path: str) -> Tuple[pd.DataFrame, Dict[str, Any]]:
+    logger.debug("Reading Parquet: %s", file_path)
+
+    df = pd.read_parquet(file_path)
+
+    if df.empty:
+        raise StructuredReadError("Parquet file is empty")
+
+    return df, {
+        "file_type": "parquet",
+        "rows_read": len(df),
+        "columns_read": len(df.columns),
+    }
+
+
+# =====================================================
+# Public unified API
+# =====================================================
+
+def read_structured_safe(
+    file_path: str,
+) -> Tuple[pd.DataFrame, Dict[str, Any]]:
+    """
+    Unified reader for structured files.
+    """
+
+    logger.debug("Entering read_structured_safe: %s", file_path)
+
+    # Normalize Path → str
+    if isinstance(file_path, Path):
+        file_path = str(file_path)
+
+    file_type = detect_file_type(file_path)
+
+    if file_type == "csv":
+        return read_csv_safe(file_path)
+    if file_type == "excel":
+        return read_excel_safe(file_path)
+    if file_type == "json":
+        return read_json_safe(file_path)
+    if file_type == "parquet":
+        return read_parquet_safe(file_path)
+
+    raise StructuredReadError(f"No reader implemented for {file_type}")

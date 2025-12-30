@@ -3,7 +3,7 @@ from typing import Dict, Any
 import pandas as pd
 
 from etl.validate.validator import sanitize_feedback
-from etl.extract.reader import read_csv_safe
+from etl.extract.reader import read_structured_safe
 from etl.profile.profiler import profile_dataframe
 from etl.profile.serializer import ensure_json_serializable
 from etl.llm.planner import generate_plan
@@ -33,7 +33,7 @@ def run_pipeline(
     # ---------------------------
     # 1. Read raw input
     # ---------------------------
-    df_raw, read_meta = read_csv_safe(input_csv_path)
+    df_raw, read_meta = read_structured_safe(input_csv_path)
     df_current = df_raw.copy()
     history = []
 
