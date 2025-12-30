@@ -4,10 +4,10 @@ from etl.pipeline import run_pipeline
 # ----------------------------
 # CONFIG
 # ----------------------------
-SMALL_INPUT = "data/uploads/test_small.csv"
+ADV_INPUT = "data/uploads/test_advanced.csv"
 LARGE_INPUT = "data/uploads/test_large.csv"
 
-SMALL_OUTPUT = "data/outputs/cleaned_test_small.csv"
+ADV_OUTPUT = "data/outputs/cleaned_test_advanced.csv"
 LARGE_OUTPUT = "data/outputs/cleaned_test_large.csv"
 
 
@@ -40,5 +40,5 @@ def test_pipeline(input_path, output_path):
 
 
 if __name__ == "__main__":
-    #test_pipeline(SMALL_INPUT, SMALL_OUTPUT)
-    test_pipeline(LARGE_INPUT, LARGE_OUTPUT)
+    test_pipeline(ADV_INPUT, ADV_OUTPUT)
+    #test_pipeline(LARGE_INPUT, LARGE_OUTPUT)

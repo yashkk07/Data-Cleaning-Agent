@@ -40,6 +40,14 @@ PLAN_SCHEMA_EXAMPLE = {
             "type": "tool",
             "name": "trim_whitespace",
             "args": {"column": "example_column"}
+        },
+        {
+            "type": "tool",
+            "name": "fillna",
+            "args": {
+                "column": "numeric_column",
+                "strategy": "mean"
+            }
         }
     ]
 }
@@ -49,6 +57,7 @@ PLAN_SCHEMA_EXAMPLE = {
 # ======================================================
 
 SYSTEM_PROMPT = """
+STRICT MODE: DO NOT EXPLORE.
 You are a data-cleaning planner for a production ETL system.
 
 You are given a dataset profiler output.
@@ -129,6 +138,9 @@ STRICT FILLNA RULES:
 - For text/categorical:
   - Use mode or constant only
 - NEVER fill datetime unless forward_fill is safe
+- fillna args MUST be:
+  {"column": "...", "strategy": "mean|median|mode|constant|zero|forward_fill"}
+- NEVER pass functions, lambdas, or nested objects
 
 ADDITIONAL CLEANING HEURISTICS:
 

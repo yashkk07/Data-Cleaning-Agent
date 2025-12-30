@@ -138,20 +138,24 @@ def fillna(
     series = df[column]
 
     if strategy == "mean":
-        df[column] = series.fillna(series.mean())
+        filled = series.fillna(series.mean())
     elif strategy == "median":
-        df[column] = series.fillna(series.median())
+        filled = series.fillna(series.median())
     elif strategy == "mode":
-        if not series.mode().empty:
-            df[column] = series.fillna(series.mode()[0])
+        if series.mode().empty:
+            return df
+        filled = series.fillna(series.mode()[0])
     elif strategy == "constant":
-        df[column] = series.fillna(value)
+        filled = series.fillna(value)
     elif strategy == "zero":
-        df[column] = series.fillna(0)
+        filled = series.fillna(0)
     elif strategy == "forward_fill":
-        df[column] = series.fillna(method="ffill")
+        filled = series.ffill()
     else:
         raise ValueError(f"Unknown fillna strategy: {strategy}")
+
+    # 🔒 Explicit dtype inference (fixes FutureWarning)
+    df[column] = filled.infer_objects(copy=False)
 
     return df
 
@@ -171,10 +175,22 @@ def parse_boolean(df: pd.DataFrame, column: str) -> pd.DataFrame:
         return df
 
     df = df.copy()
-    df[column] = (
-        df[column].astype(str).str.strip().str.lower().map(BOOLEAN_MAP)
+    series = df[column]
+
+    # Skip if already boolean
+    if pd.api.types.is_bool_dtype(series):
+        return df
+
+    mapped = (
+        series.astype(str)
+        .str.strip()
+        .str.lower()
+        .map(BOOLEAN_MAP)
     )
-    
+
+    # Explicit nullable boolean conversion
+    df[column] = mapped.astype("boolean")
+
     return df
 
 def normalize_text_case(

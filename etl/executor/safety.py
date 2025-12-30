@@ -58,6 +58,10 @@ def is_tool_safe(
 
         if meta.get("missing_pct", 0) < 5:
             return False, "fillna blocked: missing_pct < 5%"
+        
+        args = step.get("args", {})
+        if "strategy" not in args and "value" in args:
+            raise ValueError("fillna requires 'strategy', not function objects")
 
     # ❌ parse_boolean safety
     if tool == "parse_boolean":
