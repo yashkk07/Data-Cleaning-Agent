@@ -217,29 +217,6 @@ def normalize_text_case(
 
     return df
 
-def normalize_text_case(
-    df: pd.DataFrame,
-    column: str,
-    mode: str = "lower",
-) -> pd.DataFrame:
-    """
-    mode: lower | upper | title
-    """
-    if column not in df.columns:
-        return df
-
-    df = df.copy()
-
-    if mode == "lower":
-        df[column] = df[column].str.lower()
-    elif mode == "upper":
-        df[column] = df[column].str.upper()
-    elif mode == "title":
-        df[column] = df[column].str.title()
-    else:
-        raise ValueError(f"Unknown text case mode: {mode}")
-
-    return df
 
 def scale_numeric(
     df: pd.DataFrame,
@@ -372,3 +349,107 @@ def standardize_categories(
 
     df[column] = standardized
     return df
+
+
+def select_model_variables(
+    df: pd.DataFrame,
+    target: str,
+    min_corr: float = 0.1,
+    max_missing_pct: float = 40.0,
+) -> Dict[str, Any]:
+    """
+    Suggests independent variables for modeling based on correlation with a user-defined target column.
+
+    READ-ONLY:
+    - Does NOT modify the DataFrame
+    - Returns metadata only
+
+    Intended for ARIMAX-style baseline forecasting.
+    """
+
+    if target not in df.columns:
+        raise ValueError(f"Target column '{target}' not found in DataFrame")
+
+    target_series = df[target]
+
+    if not pd.api.types.is_numeric_dtype(target_series):
+        raise ValueError("Target column must be numeric for correlation analysis")
+
+    result = {
+        "target": target,
+        "selected_features": [],
+        "candidate_features": [],
+        "excluded_features": {},
+        "selection_method": "pearson_correlation",
+        "thresholds": {
+            "min_corr": min_corr,
+            "max_missing_pct": max_missing_pct,
+        },
+    }
+
+    # ----------------------------------
+    # Iterate through potential predictors
+    # ----------------------------------
+    for col in df.columns:
+        if col == target:
+            continue
+
+        series = df[col]
+
+        # Missingness check
+        missing_pct = series.isna().mean() * 100
+        if missing_pct > max_missing_pct:
+            result["excluded_features"][col] = f"missing_pct {missing_pct:.1f}%"
+            continue
+
+        # Type checks
+        if not pd.api.types.is_numeric_dtype(series):
+            result["excluded_features"][col] = "non-numeric"
+            continue
+
+        # Variance check
+        if series.nunique(dropna=True) <= 1:
+            result["excluded_features"][col] = "zero or near-zero variance"
+            continue
+
+        # Correlation
+        corr = target_series.corr(series)
+
+        if pd.isna(corr):
+            result["excluded_features"][col] = "correlation undefined"
+            continue
+
+        entry = {
+            "column": col,
+            "correlation": round(float(corr), 4),
+            "missing_pct": round(missing_pct, 2),
+        }
+
+        result["candidate_features"].append(entry)
+
+        if abs(corr) >= min_corr:
+            result["selected_features"].append(entry)
+
+    # ----------------------------------
+    # Sort results by absolute correlation
+    # ----------------------------------
+    result["candidate_features"].sort(
+        key=lambda x: abs(x["correlation"]),
+        reverse=True,
+    )
+
+    result["selected_features"].sort(
+        key=lambda x: abs(x["correlation"]),
+        reverse=True,
+    )
+
+    # ----------------------------------
+    # Summary flags
+    # ----------------------------------
+    result["summary"] = {
+        "num_candidates": len(result["candidate_features"]),
+        "num_selected": len(result["selected_features"]),
+        "is_model_ready": len(result["selected_features"]) > 0,
+    }
+
+    return result

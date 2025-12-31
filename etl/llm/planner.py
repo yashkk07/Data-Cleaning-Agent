@@ -29,9 +29,9 @@ ALLOWED_TOOLS = [
     "fillna",
     "parse_boolean",
     "normalize_text_case",
-    "scale_numeric",
-    "cap_outliers",
-    "standardize_categories",
+    #"scale_numeric", # would be done during modeling, not cleaning
+    #"cap_outliers", # would be done during modeling, not cleaning
+    #"standardize_categories", # would be done during modeling, not cleaning
 ]
 
 PLAN_SCHEMA_EXAMPLE = {
@@ -139,7 +139,7 @@ STRICT FILLNA RULES:
   - Use mode or constant only
 - NEVER fill datetime unless forward_fill is safe
 - fillna args MUST be:
-  {"column": "...", "strategy": "mean|median|mode|constant|zero|forward_fill"}
+  "column": "...", "strategy": "mean|median|mode|constant|zero|forward_fill"
 - NEVER pass functions, lambdas, or nested objects
 
 ADDITIONAL CLEANING HEURISTICS:
@@ -151,17 +151,6 @@ TEXT NORMALIZATION:
 - semantic_type in ["text", "categorical"] AND avg_string_length <= 30
   → normalize_text_case (mode="lower")
 
-CATEGORY STANDARDIZATION:
-- semantic_type == "categorical" → standardize_categories
-
-OUTLIER HANDLING:
-- semantic_type == "numeric" AND outlier_pct >= 10
-  → cap_outliers (method="iqr")
-
-NUMERIC SCALING (OPTIONAL, LAST STEP ONLY):
-- semantic_type == "numeric" AND outlier_pct < 5 AND missing_pct < 5
-  → scale_numeric (method="zscore")
-
 {feedback_block}
 
 ALLOWED TOOLS:
@@ -172,6 +161,19 @@ OUTPUT FORMAT EXAMPLE:
 
 Generate a minimal, safe, justified cleaning plan.
 """
+
+# '''
+# CATEGORY STANDARDIZATION:
+# - semantic_type == "categorical" → standardize_categories
+
+# OUTLIER HANDLING:
+# - semantic_type == "numeric" AND outlier_pct >= 10
+#   → cap_outliers (method="iqr")
+
+# NUMERIC SCALING (LAST STEP ONLY):
+# - semantic_type == "numeric" AND outlier_pct < 5 AND missing_pct < 5
+#   → scale_numeric (method="zscore")
+#   '''
 
 # ======================================================
 # OpenAI Client

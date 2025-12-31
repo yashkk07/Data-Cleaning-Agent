@@ -5,11 +5,10 @@ from etl.pipeline import run_pipeline
 # CONFIG
 # ----------------------------
 ADV_INPUT = "data/uploads/test_advanced.csv"
-LARGE_INPUT = "data/uploads/test_large.csv"
+FOR_INPUT = "data/uploads/VS_data.csv"
 
 ADV_OUTPUT = "data/outputs/cleaned_test_advanced.csv"
-LARGE_OUTPUT = "data/outputs/cleaned_test_large.csv"
-
+FOR_OUTPUT = "data/outputs/cleaned_VS_data.csv"
 
 def test_pipeline(input_path, output_path):
     print(f"\n=== Running pipeline on {input_path} ===\n")
@@ -40,5 +39,5 @@ def test_pipeline(input_path, output_path):
 
 
 if __name__ == "__main__":
-    test_pipeline(ADV_INPUT, ADV_OUTPUT)
-    #test_pipeline(LARGE_INPUT, LARGE_OUTPUT)
+    #test_pipeline(ADV_INPUT, ADV_OUTPUT)
+    test_pipeline(FOR_INPUT, FOR_OUTPUT)
