@@ -6,7 +6,6 @@ from etl.llm.json_utils import parse_llm_json
 
 logger = logging.getLogger(__name__)
 
-from groq import Groq
 from openai import OpenAI
 from dotenv import load_dotenv
 
@@ -69,11 +68,13 @@ CRITICAL RULES:
 - No markdown
 - No comments
 - No text outside JSON
+- EVERY tool MUST have an "args" field that is a JSON object (dict)
+- If no arguments needed, use empty dict: "args": {}
 
 YOU MAY ONLY:
 - Select tools from the allowed list
 - Use column names EXACTLY as provided
-- Provide COMPLETE arguments for every tool
+- Provide COMPLETE arguments for every tool (args must be an object/dict)
 
 YOU MUST:
 - Base decisions ONLY on profiler metadata
@@ -85,6 +86,7 @@ NEVER:
 - Invent columns
 - Repeat failed steps
 - Apply datetime or numeric conversion without strong evidence
+- Generate args as array or string - ALWAYS use object {}
 """
 
 # ======================================================
@@ -191,7 +193,7 @@ def call_openai(system_prompt: str, user_prompt: str) -> str:
     logger.debug("Entering call_openai")
     api_key = get_openai_key()
 
-    model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    model = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
 
     client = OpenAI(api_key=api_key)
 
@@ -217,32 +219,7 @@ def call_openai(system_prompt: str, user_prompt: str) -> str:
     return content.strip()
 
 
-# ======================================================
-# GROQ CLIENT
-# ======================================================
 
-def get_groq_client() -> Groq:
-    logger.debug("Entering get_groq_client")
-    api_key = os.getenv("GROQ_API_KEY")
-    if not api_key:
-        raise EnvironmentError("GROQ_API_KEY not set")
-    return Groq(api_key=api_key)
-
-def call_groq(system_prompt: str, user_prompt: str) -> str:
-    logger.debug("Entering call_groq")
-    client = get_groq_client()
-
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ],
-        temperature=0.0,
-        max_tokens=3200,
-    )
-
-    return response.choices[0].message.content.strip()
 
 # ======================================================
 # VALIDATION
@@ -264,8 +241,17 @@ def validate_plan(plan: Dict[str, Any]) -> None:
         if name not in ALLOWED_TOOLS:
             raise ValueError(f"Tool not allowed: {name}")
 
+        # Handle case where args is missing or None - default to empty dict
+        if args is None:
+            step["args"] = {}
+            args = {}
+        
+        # Ensure args is a dict
         if not isinstance(args, dict):
-            raise ValueError("Tool args must be a dict")
+            # Try to handle edge cases where LLM generates invalid types
+            logger.warning(f"Step {i} ({name}): args is {type(args).__name__}, converting to empty dict")
+            step["args"] = {}
+            args = {}
 
 # ======================================================
 # PUBLIC API
@@ -280,8 +266,7 @@ def generate_plan(
     profile_json = json.dumps(profile, indent=2)
 
     user_prompt = build_user_prompt(profile_json, feedback)
-    #llm_output = call_openai(SYSTEM_PROMPT, user_prompt)
-    llm_output = call_groq(SYSTEM_PROMPT, user_prompt)
+    llm_output = call_openai(SYSTEM_PROMPT, user_prompt)
 
     try:
         plan = parse_llm_json(llm_output)

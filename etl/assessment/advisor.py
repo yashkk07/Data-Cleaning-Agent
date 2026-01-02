@@ -3,7 +3,7 @@ import logging
 from typing import Dict, Any, List
 
 from etl.llm.json_utils import parse_llm_json
-from etl.llm.planner import call_groq, call_openai
+from etl.llm.planner import call_openai
 
 logger = logging.getLogger(__name__)
 
@@ -115,24 +115,15 @@ def generate_advice(
     profile: Dict[str, Any],
     confidence: Dict[str, Any],
     readiness: Dict[str, Any],
-    llm_backend: str = "openai",
 ) -> Dict[str, Any]:
     """
-    Generates data quality & forecasting advice.
-
-    llm_backend:
-    - "openai" → GPT-4o-mini (default, explanatory)
-    - "groq"   → LLaMA 3.3 70B (optional)
+    Generates data quality & forecasting advice using OpenAI GPT-3.5 Turbo.
     """
 
     logger.debug("Entering advisor.generate_advice")
 
     user_prompt = build_user_prompt(profile, confidence, readiness)
-
-    if llm_backend == "groq":
-        raw_output = call_groq(SYSTEM_PROMPT, user_prompt)
-    else:
-        raw_output = call_openai(SYSTEM_PROMPT, user_prompt)
+    raw_output = call_openai(SYSTEM_PROMPT, user_prompt)
 
     try:
         advice = parse_llm_json(raw_output)
